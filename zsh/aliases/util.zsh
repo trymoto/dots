@@ -44,3 +44,8 @@ function token() {
   echo "gcloud auth print-identity-token | wl-copy"
 }
 
+
+function compress() {
+  ffmpeg -i "$1" -vcodec libx264 -crf 23 -preset medium -acodec aac -b:a 128k "compressed_$1"
+}
+

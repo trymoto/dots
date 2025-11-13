@@ -31,3 +31,5 @@ source $ZSH/custom/themes/headline.zsh-theme
 eval "$(pnpm completion zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 eval "$(kubectl completion zsh)"
+alias h="Hyprland"
+
