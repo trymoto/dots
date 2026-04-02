@@ -1,3 +1,4 @@
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
@@ -8,6 +9,7 @@ fi
 
 export GOPATH=`go env GOPATH`
 export PATH=$PATH:`go env GOPATH`/bin/
+export PATH="$HOME/.local/bin:$PATH"
 
 export PODMAN_COMPOSE_WARNING_LOGS=false
 export TERM=xterm-256color
@@ -22,6 +24,8 @@ case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
+export EDITOR="nvim"
+
 
 COMPLETION_WAITING_DOTS="true"
 ZSH_THEME="headline"
@@ -32,4 +36,5 @@ eval "$(pnpm completion zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 eval "$(kubectl completion zsh)"
 alias h="Hyprland"
+
 

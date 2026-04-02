@@ -8,6 +8,7 @@
   ],
   "modules-center": [],
   "modules-right": [
+    "tray",
     "wireplumber",
     "hyprland/language",
     "cpu",

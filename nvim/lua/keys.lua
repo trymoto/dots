@@ -18,8 +18,9 @@ keyset("n", "<leader>vr", ":source $MYVIMRC<cr>")
 
 vim.env.FZF_DEFAULT_COMMAND =
 	'rg --files --hidden --no-ignore --glob "!.git/*" --glob "!dist/*" --glob "!node_modules/*"'
-keyset("n", "<c-p>", ":Files<cr>")
-keyset("n", "<c-a-p>", ":Rg<cr>")
+
+keyset("n", "<c-p>", ":Telescope find_files<cr>")
+keyset("n", "<c-a-p>", ":Telescope live_grep<cr>")
 
 keyset("n", "<F3>", ":horizontal botright copen 5<cr>")
 keyset("n", "<F4>", ":cclose<cr>")
@@ -34,8 +35,17 @@ keyset("i", "<a-j>", "<Esc>:m .+1<cr>==gi")
 keyset("i", "<a-k>", "<Esc>:m .-2<cr>==gi")
 keyset("v", "<a-j>", ":m '>+1<cr>gv=gv")
 keyset("v", "<a-k>", ":m '<-2<cr>gv=gv")
-keyset("n", "<leader>cp", ":let @+ = expand('%')<cr>")
-keyset("n", "<leader>cpa", ":let @+ = expand('%:p')<cr>")
+-- Copy absolute path
+keyset("n", "<leader>%", function()
+	vim.fn.setreg("+", vim.fn.expand("%:p"))
+	print("Copied: " .. vim.fn.expand("%:p"))
+end)
+-- Copy relative path
+keyset("n", "<leader>$", function()
+	vim.fn.setreg("+", vim.fn.expand("%"))
+	print("Copied: " .. vim.fn.expand("%"))
+end)
+
 keyset("n", "<Esc><Esc>", ":noh<return><esc>")
 
 keyset("n", "<C-Down>", ":call vm#commands#add_cursor_down(0, 0)<cr>")
@@ -57,3 +67,4 @@ vim.api.nvim_create_user_command("Q", "windo bd", { bang = false, nargs = 0 })
 
 keyset("n", "O", "O<Esc>^d$")
 keyset("n", "<leader>e<cr>", ":Ex")
+keyset("n", "<leader>z", ":ZenMode<cr>")

@@ -1,0 +1,1 @@
+echo "[[$(date --date="yesterday" +%Y-%m-%d)]]"

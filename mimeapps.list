@@ -1,0 +1,15 @@
+
+[Default Applications]
+text/html=firefox-developer-edition.desktop
+x-scheme-handler/http=firefox-developer-edition.desktop
+x-scheme-handler/https=firefox-developer-edition.desktop
+x-scheme-handler/about=firefox-developer-edition.desktop
+x-scheme-handler/unknown=firefox-developer-edition.desktop
+application/pdf=org.pwmt.zathura.desktop
+image/png=org.pwmt.zathura.desktop
+image/jpg=org.pwmt.zathura.desktop
+image/jpeg=org.pwmt.zathura.desktop
+image/webp=org.pwmt.zathura.desktop
+image/tiff=org.pwmt.zathura.desktop
+x-scheme-handler/claude-cli=claude-code-url-handler.desktop
+

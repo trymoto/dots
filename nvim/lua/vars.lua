@@ -21,5 +21,11 @@ vim.opt.smartcase = true
 vim.opt.termguicolors = true
 vim.opt.clipboard = "unnamedplus"
 
+if string.find(vim.fn.getcwd(), "obsidian") then
+	vim.opt.conceallevel = 1
+else
+	vim.opt.conceallevel = 0
+end
+
 vim.opt.langmap =
 	"ФИСВУАПРШОЛДЬТЩЗЙКЫЕГМЦЧНЯ;ABCDEFGHIJKLMNOPQRSTUVWXYZ,фисвуапршолдьтщзйкыегмцчня;abcdefghijklmnopqrstuvwxyz"

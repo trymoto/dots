@@ -1,0 +1,33 @@
+{
+    "speech_recognition": {
+        "engine": "whisper_cpp",
+        "language": "en-us",
+        "model_size": "tiny",
+        "vosk_model_size": "small",
+        "whisper_model_size": "tiny",
+        "whisper_cpp_model_size": "tiny",
+        "vad_sensitivity": 3,
+        "silence_timeout": 2.0,
+        "voice_commands_enabled": null
+    },
+    "audio": {
+        "device_index": 6,
+        "device_name": "Razer Seiren V3 Mini: USB Audio (hw:3,0)"
+    },
+    "shortcuts": {
+        "toggle_recognition": "ctrl+ctrl",
+        "mode": "toggle"
+    },
+    "ui": {
+        "start_minimized": true,
+        "show_notifications": true
+    },
+    "general": {
+        "autostart": true,
+        "first_run": false
+    },
+    "advanced": {
+        "debug_logging": false,
+        "wayland_mode": false
+    }
+}

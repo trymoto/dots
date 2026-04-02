@@ -23,3 +23,27 @@ nvim/plugged
 pulse
 tmux/plugins
 vidcutter
+/zoom.conf
+/zoomus.conf
+/Surge XT.settings
+/QtProject.conf
+/JetBrains/Rider2025.3
+/NuGet
+/ardour9
+/gh/hosts.yml
+/ibus
+/gcloud
+/lsp-plugins
+/nextjs-nodejs
+/obs-studio/logs
+/obs-studio/profiler_data
+/obs-studio/plugin_config/obs-websocket/config.json
+/obs-studio/plugin_config/rtmp-services
+/obsidian
+/ranger/.claude/settings.local.json
+/ranger/colorschemes/__pycache__
+/ranger/colorschemes/__init__.py
+/rncbc.org
+/systemd/user
+/wireshark
+/zenflow-desktop

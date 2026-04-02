@@ -53,15 +53,35 @@ Plug("preservim/nerdtree")
 Plug("unkiwii/vim-nerdtree-sync")
 Plug("junegunn/fzf.vim")
 Plug("junegunn/fzf")
+Plug("nvim-telescope/telescope.nvim")
+Plug("nvim-telescope/telescope-fzf-native.nvim", { run = "make" })
+
+-- NOTETAKING
+Plug("epwalsh/obsidian.nvim", {
+	dependencies = { "nvim-lua/plenary.nvim" },
+})
 
 -- DBUI
 Plug("tpope/vim-dadbod")
 Plug("kristijanhusak/vim-dadbod-ui")
 
 -- AI
-Plug("github/copilot.vim")
-Plug("panozzaj/vim-copilot-ignore")
--- Plug("Exafunction/codeium.vim")
+local is_cat = string.find(vim.fn.getcwd(), "cat")
+local is_obsidian = string.find(vim.fn.getcwd(), "obsidian")
+
+if is_obsidian then
+	vim.g.codeium_enabled = false
+	vim.g.copilot_enabled = false
+else
+	if is_cat then
+		Plug("github/copilot.vim")
+		vim.g.codeium_enabled = false
+	else
+		Plug("Exafunction/codeium.vim")
+		vim.g.copilot_enabled = false
+	end
+	Plug("panozzaj/vim-copilot-ignore")
+end
 
 -- FUN
 Plug("ThePrimeagen/vim-be-good")

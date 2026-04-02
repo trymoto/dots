@@ -1,0 +1,107 @@
+#!/bin/bash
+
+function print_usage {
+    echo "Usage: $0 [--daily|--dream] [note_name]"
+    echo "  --daily       Create a daily journal note with today's date as the name."
+    echo "  --dream       Create a dream note with today's date as the name."
+    echo "  note_name     Name of the note to create (if not using --daily or --dream)."
+}
+
+note_type="regular"
+
+# Check for --daily flag
+if [ "$1" == "--daily" ]; then
+    input_subdir="journal"
+    shift  # Remove the flag from arguments
+    note_name=$(date +%Y-%m-%d)
+    note_type="daily"
+elif [ "$1" == "--dream" ]; then
+    input_subdir="dreams"
+    shift  # Remove the flag from arguments
+    note_name=$(date +%Y-%m-%d)
+    note_type="dream"
+else
+    input_subdir=""
+
+    # if there's anything in the first argument, use it as the note name
+    if [ -n "$1" ]; then
+        note_name="$1"
+        shift  # Remove the note name from arguments
+    else
+        # Prompt for note name
+        read -p "Name: " note_name
+    fi
+fi
+
+
+# Set up paths
+obsidian_dir="$HOME/obsidian/meta"
+if [ -n "$input_subdir" ]; then
+    input_dir="$obsidian_dir/input/$input_subdir"
+else
+    input_dir="$obsidian_dir/input"
+fi
+filename="${note_name}.md"
+filepath="$input_dir/$filename"
+
+# Create input directory if it doesn't exist
+mkdir -p "$input_dir"
+
+# Check if file exists
+if [ ! -f "$filepath" ]; then
+    # Generate random 8-character alphanumeric ID
+    id=$(LC_ALL=C tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c 8)
+    
+    # Get current date in YYYY-MM-DD format
+    created_at=$(date +%Y-%m-%d)
+
+regular_note_template() {
+    cat << EOF
+---
+id: ${id}
+created_at: "${created_at}"
+---
+
+# ${note_name}
+
+## Links:
+
+EOF
+}
+
+yesterday="$(date --date="yesterday" +%Y-%m-%d)"
+
+daily_note_template() {
+    cat << EOF
+---
+id: ${id}
+created_at: "${created_at}"
+---
+
+# ${note_name}
+
+## shortlist
+
+## observations
+
+## gratitude
+
+## rant
+
+## Links:
+
+[[${yesterday}]]
+
+EOF
+}
+
+    if [ "$note_type" == "daily" ]; then
+        daily_note_template > "$filepath"
+    else
+        regular_note_template > "$filepath"
+    fi
+
+fi
+
+# Open in nvim with cwd set to ~/obsidian/meta
+cd "$obsidian_dir" && nvim "$filepath"
