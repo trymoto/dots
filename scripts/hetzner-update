@@ -1,0 +1,13 @@
+# SSH — open to all (needed for GH Actions CD)
+hcloud firewall add-rule k8s-fw \
+  --direction in --protocol tcp --port 22 \
+  --source-ips 0.0.0.0/0 --source-ips ::/0
+
+# Kubernetes API server — only from your IP
+hcloud firewall add-rule k8s-fw \
+  --direction in --protocol tcp --port 6443 \
+  --source-ips $(curl -s -4 https://ip.hetzner.com)/32
+
+hcloud firewall apply-to-resource k8s-fw \
+  --type server --server homelab
+

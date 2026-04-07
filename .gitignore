@@ -47,3 +47,6 @@ vidcutter
 /systemd/user
 /wireshark
 /zenflow-desktop
+/hcloud/cli.toml
+/Windsurf
+/zoom
