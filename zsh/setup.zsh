@@ -32,6 +32,9 @@ ZSH_THEME="headline"
 source $ZSH/oh-my-zsh.sh
 source $ZSH/custom/themes/headline.zsh-theme
 
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
 eval "$(pnpm completion zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 eval "$(kubectl completion zsh)"

@@ -33,7 +33,7 @@ history = 5000
 
 [terminal.shell]
 args = ["--login"]
-program = "/usr/bin/zsh"
+program = "zsh"
 
 [window]
 decorations = "none"

@@ -4,7 +4,11 @@ alias rng="ranger ./ ./"
 alias lg="lazygit"
 alias ld="lazydocker"
 # alias fman="compgen -c | fzf | xargs man"
-alias love='echo "♥" | tee >(wl-copy)'
+if [[ "$OSTYPE" == darwin* ]]; then
+  alias love='echo "♥" | tee >(pbcopy)'
+else
+  alias love='echo "♥" | tee >(wl-copy)'
+fi
 # alias time='date +%s000 | tee >(wl-copy)'
 alias fl='fzf --preview="bat --color=always {}"'
 # alias meta="cd ~/obsidian/meta && nvim"
@@ -16,7 +20,9 @@ alias t="tmux"
 alias ta="tmux attach -t"
 alias tls="tmux ls"
 alias tn="tmux new -s"
-alias h="Hyprland"
+if [[ "$OSTYPE" != darwin* ]]; then
+  alias h="Hyprland"
+fi
 
 alias dnsflush="sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder"
 
@@ -28,19 +34,28 @@ bindkey '^[[20~;' autosuggest-accept
 alias cors="docker run -d -p 8080:8080 --name cors redocly/cors-anywhere"
 alias stop="docker stop $(docker ps -aq) && docker rm $(docker ps -aq)"
 
-alias sleep='systemctl suspend'
-alias shutdown='sudo systemctl poweroff'
-alias reboot='sudo systemctl reboot'
-
-alias open='xdg-open'
+if [[ "$OSTYPE" == darwin* ]]; then
+  alias sleep='pmset sleepnow'
+  alias shutdown='sudo shutdown -h now'
+  alias reboot='sudo reboot'
+else
+  alias sleep='systemctl suspend'
+  alias shutdown='sudo systemctl poweroff'
+  alias reboot='sudo systemctl reboot'
+  alias open='xdg-open'
+fi
 
 jsontocsv() {
   jq -r '(.[0] | keys_unsorted) as $keys | $keys, map([.[ $keys[] ]])[] | @csv'
 }
 
 function token() {
-  gcloud auth print-identity-token | wl-copy
-  echo "gcloud auth print-identity-token | wl-copy"
+  if [[ "$OSTYPE" == darwin* ]]; then
+    gcloud auth print-identity-token | pbcopy
+  else
+    gcloud auth print-identity-token | wl-copy
+  fi
+  echo "copied identity token"
 }
 
 
@@ -60,11 +75,19 @@ wlp() {
 
   [[ "$file" != *.* ]] && file="${file}.png"
 
-  wl-paste --type image/png > "$file" && echo "Saved to $file"
+  if [[ "$OSTYPE" == darwin* ]]; then
+    pngpaste "$file" && echo "Saved to $file"
+  else
+    wl-paste --type image/png > "$file" && echo "Saved to $file"
+  fi
 }
 
 wls() {
-  dir="/home/moto/obsidian/meta/input"
+  if [[ "$OSTYPE" == darwin* ]]; then
+    dir="$HOME/obsidian/meta/input"
+  else
+    dir="/home/moto/obsidian/meta/input"
+  fi
   file="$1"
 
   [ -z "$file" ] && {
@@ -74,6 +97,9 @@ wls() {
 
   [[ "$file" != *.* ]] && file="${file}.png"
 
-  wl-paste --type image/png > "$dir/$file" && \
-    echo "Saved to $dir/$file"
+  if [[ "$OSTYPE" == darwin* ]]; then
+    pngpaste "$dir/$file" && echo "Saved to $dir/$file"
+  else
+    wl-paste --type image/png > "$dir/$file" && echo "Saved to $dir/$file"
+  fi
 }
