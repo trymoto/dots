@@ -1,0 +1,4 @@
+cd ~/obsidian/meta
+git checkout main
+git reset --hard
+cd -
